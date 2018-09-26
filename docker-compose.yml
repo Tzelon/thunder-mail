@@ -1,0 +1,31 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:10.4
+    volumes:
+    - ./postgres-data/postgres10:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: thundermail
+    ports:
+    - 5432:5432
+    networks:
+    - thunder-mail-network
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    environment:
+      PSQL_USERNAME: postgres
+      PSQL_DATABASE: thundermail
+      PSQL_HOST: postgres
+      VIRTUAL_HOST: app
+      VIRTUAL_PORT: 8080
+    networks:
+    - thunder-mail-network
+    ports:
+    - "80:8080"
+networks:
+  thunder-mail-network:
+    driver: bridge
