@@ -93,7 +93,6 @@ const readyEmailToBeSend = R.curry((activities, email, analyticsFunctions) => {
             html: template(email.message.body.html, email.destination.templateData),
             text: template(email.message.body.text, email.destination.templateData),
             trackingId: activity.trackingId,
-            whiteLabelUrl: "http://localhost:8080" //TODO: REMOVE HARD CODED URL
         }),
         trackingId: activity.trackingId
     }));

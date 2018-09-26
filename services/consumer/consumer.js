@@ -1,7 +1,7 @@
 require('dotenv').config();
 const AWS = require('aws-sdk');
 const Consumer = require('sqs-consumer');
-const { org: Org, activity: Activity } = require('../../db/models/index');
+const { org: Org, activity: Activity } = require('../../db/models');
 
 module.exports = {
     start,
@@ -23,7 +23,7 @@ function start() {
 }
 
 function stop() {
-    console.debug('Stopping %d consumers', consumers.length);
+    console.debug(`Stopping ${consumers.length} consumers`);
     consumers.forEach(consumer => {
         consumer.stop();
     });

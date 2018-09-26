@@ -43,7 +43,7 @@ const getEmailQuotas = (ses) => {
             // If the user's max send rate is 1, they are in sandbox mode.
             // We should let them know
             if (MaxSendRate <= 1 && process.env.NODE_ENV === "production") {
-                throw { message: 'You are currently in Sandbox Mode. Please contact Amazon to get this lifted.' };
+                throw new Error('You are currently in Sandbox Mode. Please contact Amazon to get this lifted.');
             }
             return { Max24HourSend, SentLast24Hours, MaxSendRate, AvailableToday: (Max24HourSend - SentLast24Hours) };
         });
