@@ -46,7 +46,7 @@ router.route('/')
                         throw new Error(`There are no destinations or destinations are unsubscribed`);
                     }
 
-                    bulkCreateActivities(filteredDestination, {
+                    return bulkCreateActivities(filteredDestination, {
                         from: reqBody.source,
                         apiKeyUUID: org.apiKeyUUID,
                         orgId: org.id
