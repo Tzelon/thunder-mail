@@ -1,10 +1,12 @@
+const R = require('ramda');
+
 /**
  * @description send email using SES
  * @param ses
  * @param params
  * @return {Promise}
  */
-const sendEmail = (ses, params) => {
+const sendEmail = R.curry((ses, params) => {
     const email = {
         Source: params.from, //`"${campaignInfo.fromName}" <${campaignInfo.fromEmail}>`, // TODO: CHANGE TO THIS FORMAT
         Destination: {
@@ -33,8 +35,8 @@ const sendEmail = (ses, params) => {
     };
 
     return ses.sendEmail(email).promise()
-        .then(value => ({ messageId: value.MessageId, trackingId: params.trackingId}));
-};
+        .then(value => ({ messageId: value.MessageId, trackingId: params.trackingId }));
+});
 
 const getEmailQuotas = (ses) => {
     return ses.getSendQuota().promise()

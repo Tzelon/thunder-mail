@@ -1,0 +1,4 @@
+--reporter spec
+-r chai/register-expect
+--ui bdd
+--recursive

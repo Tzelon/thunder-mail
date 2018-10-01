@@ -8,7 +8,7 @@ const sendEmailSchema = Joi.object().keys({
         bcc: Joi.array().items(Joi.string()).max(50),
         subject: Joi.string(),
         templateData: Joi.object()
-    }),
+    }).required(),
     templateData: Joi.object(),
     replyTo: Joi.string(),
     returnPath: Joi.string(),
