@@ -1,3 +1,10 @@
+
+[![Thunder-Mail](https://img.shields.io/hackage-deps/v/lens.svg?style=popout-square)](https://github.com/Circle-gg/thunder-mail/blob/master/package.json)
+[![LICENSE.txt](https://img.shields.io/crates/l/rustc-serialize.svg?style=popout-square)](https://github.com/Circle-gg/thunder-mail/blob/master/LICENSE.txt)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/Thunder-Mail/Lobby#)
+
+
+
 # Send Emails Via API, For Less Using Amazon SES
 ### Thunder Mail is an open source, easy to use platform for sending emails at low cost, 
 ### send thousands of emails at $0.10 per 1000 emails. 
