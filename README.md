@@ -2,6 +2,8 @@
 ### Thunder Mail is an open source, easy to use platform for sending emails at low cost, 
 ### send thousands of emails at $0.10 per 1000 emails. 
 
+Checkout developers section in our website [Thunder-Mail Developers](https://thunder-mail-website.herokuapp.com/developers) for more detailed information and guides, on how to use Thunder-Mail
+
 ## Benefits
 
 #### Integrate and deliver via API in 5 minutes or less.
