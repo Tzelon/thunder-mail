@@ -5,9 +5,12 @@
 
 | [Website](https://thunder-mail-website.herokuapp.com/) | [API Reference](https://thunder-mail-website.herokuapp.com/developers/docs/api) | [Getting Started Guide](https://thunder-mail-website.herokuapp.com/developers/docs/guide) |
 
-# Send Emails Via API, For Less Using Amazon SES
-### Thunder Mail is an open source, easy to use platform for sending emails at low cost, 
-### send thousands of emails at $0.10 per 1000 emails. 
+# What is Thunder Mail?
+#### Thunder Mail is an open source app for sending millions of emails using API for as cheaply as possible.
+
+#### Send millions of emails at $0.10 per 1000 emails.
+
+#### Start sending emails withing 5 minutes [quick start](#Getting Started)
 
 Checkout developers section in our website [Thunder-Mail Developers](https://thunder-mail-website.herokuapp.com/developers) for more detailed information and guides, on how to use Thunder-Mail
 
