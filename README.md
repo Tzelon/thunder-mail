@@ -3,7 +3,7 @@
 [![LICENSE.txt](https://img.shields.io/crates/l/rustc-serialize.svg?style=popout-square)](https://github.com/Circle-gg/thunder-mail/blob/master/LICENSE.txt)
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=popout-square)](https://gitter.im/Thunder-Mail/Lobby#)
 
-
+| [Website](https://thunder-mail-website.herokuapp.com/) | [API Reference](https://thunder-mail-website.herokuapp.com/developers/docs/api) | [Getting Started Guide](https://thunder-mail-website.herokuapp.com/developers/docs/guide) |
 
 # Send Emails Via API, For Less Using Amazon SES
 ### Thunder Mail is an open source, easy to use platform for sending emails at low cost, 
@@ -25,6 +25,9 @@ With each click and open tracked alongside the bounces and unsubscribes, you’l
 #### Transactional email templates.
 Send highly targeted emails without worrying about dangerous deploys or bloated code. With native support for Handlebars syntax dynamic templating, you can send multiple templates using our APIs.
 
+## Compare to SendGrid
+![Sendgrid-vs-SES](https://easysendy.com/blog/wp-content/uploads/2016/09/Cost-Table-4.png)  
+[Read more](https://easysendy.com/blog/amazon-ses-vs-sendgrid/)
 
 ## Getting Started
 ### Setting up Thunder Mail (docker)
