@@ -10,7 +10,7 @@
 
 #### Send millions of emails at $0.10 per 1000 emails.
 
-#### Start sending emails withing 5 minutes [quick start](#Getting Started)
+#### Start sending emails withing 5 minutes [quick start](#getting-started)
 
 Checkout developers section in our website [Thunder-Mail Developers](https://thunder-mail-website.herokuapp.com/developers) for more detailed information and guides, on how to use Thunder-Mail
 
