@@ -66,17 +66,26 @@ vi .env
 Sample .env file
 ```
 BLUEBIRD_WARNINGS=0
-PSQL_DATABASE=thundermail
-PSQL_PASSWORD=123456
-PSQL_USERNAME=u1
-PORT=80
-ENCRYPTION_SECRET=aaaaaaaaaaaaaaaa
 
+# API key encryption secret
+ENCRYPTION_SECRET=
+
+# Postgres configuration
+PSQL_USERNAME=
+PSQL_PASSWORD=
+PSQL_DATABASE=
+PSQL_HOST=
+
+# Your organization domain, should be unique
 DOMAIN=test
-SES_ACCESS_KEY_ID=AAAAAAAAAAAAAAAAAAAA
-SES_SECRET_ACCESS_KEY=BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
-SES_REGION=us-east-1
-SES_EMAIL_ADDRESS=test@test.com
+
+# AWS SES configuration
+SES_ACCESS_KEY_ID=
+SES_SECRET_ACCESS_KEY=
+SES_REGION=
+
+#The email you will send emails from. the from address in the emails you send
+SES_EMAIL_ADDRESS=
 ```
 
 Start the Docker file.
@@ -84,7 +93,52 @@ Start the Docker file.
 sudo docker-compose up
 ```
 
+#### Quick Start
 
+After you have deployed Thunder-Mail app either locally or on a cloud instance and configured your .env file
+
+Use this code to send your first email.
+
+```
+const rp = require('request-promise');
+
+let options = {
+    method: 'POST',
+    uri: 'http://localhost:8080/api/email',
+    headers: {
+        authorization: 'Bearer AAAAAA-AAAAAA-AAAAAA-AAAAAA',
+        'content-type': 'application/json'
+    },
+    body: {
+        source: 'YourFromEmail@mail.com',
+        destination: {
+            to: ['recipientTo1@mail.com', 'recipientTo2@mail.com'],
+            cc: ['recipientCC1@mail.com', 'recipientCC2@mail.com'],
+            bcc: ['recipientBCC1@mail.com', 'recipientBCC2@mail.com'],
+            subject: 'Hi, Welcome to {{name}}',
+            templateData: { name: 'Thunder-Mail' }
+        },
+        message:
+            {
+                subject: 'default subject',
+                body:
+                    {
+                        text: 'default text',
+                        html: 'Hello, <a href=\'google.com\' target=\'_blank\'>Google.com</a>'
+                    }
+            }
+    },
+    json: true
+};
+
+rp(options)
+    .then(function (parsedBody) {
+        // POST succeeded...
+    })
+    .catch(function (err) {
+        // POST failed...
+    });
+```
 
 
 Special thanks to [mail-for-good](https://github.com/freeCodeCamp/mail-for-good/) for the inspiration to build and open source Thunder-Mail
