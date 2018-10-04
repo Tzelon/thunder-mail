@@ -142,8 +142,7 @@ function receiveMessageCallback(message, done) {
         Activity
             .findOne({
                 where: {
-                    messageId: notification.mail.messageId,
-                    recipient: notification.mail.destination[0].slice(1, -1)
+                    messageId: notification.mail.messageId
                 }
             })
             .then(activity => {

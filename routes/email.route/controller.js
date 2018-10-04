@@ -51,7 +51,7 @@ const validateRequestBody = R.curry(function validateRequestBody(schema, reqBody
  *
  *  Output Array:
  *  [{
-        "source": "example@test.com",
+        "from": "example@test.com",
  *      "to": ["to_1@test.gg"],
  *      "subject": "TEST Amos",
  *      "body": {
@@ -179,7 +179,7 @@ const validateSESQuotes = R.curry(function validateSESQuotes(SES, destinations) 
  * @return {Promise<Object>} SendAction
  */
 const bulkCreateActivities = R.curry((Activity, { apiKeyUUID, orgId }, sendAction) => {
-    const activities = sendAction.destinations.map(destination => ({ ...destination, apiKeyUUID, orgId }));
+    const activities = sendAction.destinations.map(destination => ({ ...destination, recipient: destination.to[0], apiKeyUUID, orgId }));
     return Activity
         .bulkCreate(activities)
         .then(R.map((activity) => activity.get({ plain: true })))
@@ -230,7 +230,8 @@ const applyAnalytics = R.curry(function applyAnalytics(analyticsFunctions, sendA
         ...sendAction,
         destinations: sendAction.destinations.map(({ body, trackingId, ...rest }) => ({
             ...rest,
-            body: analyticsFunctions ? R.compose(...analyticsFunctions)({ ...body, trackingId }) : body
+            trackingId,
+            body: analyticsFunctions ? R.pick(['text', 'html'], R.compose(...analyticsFunctions)({ ...body, trackingId })) : body
         }))
     });
 });
@@ -245,8 +246,8 @@ const applyAnalytics = R.curry(function applyAnalytics(analyticsFunctions, sendA
  * @return {Promise<Object>} sendAction
  */
 const createSendFn = R.curry(function createSendFn(SES, sendAction) {
-    const TIME_SEND = (1 / sendAction.maxSendRate) * 1000; //ms
-    limiter.updateSettings({ maxConcurrent: sendAction.maxSendRate, minTime: TIME_SEND }); //use Bottleneck to control the rate of emails sends
+    const TIME_SEND = (1 / sendAction.meta.maxSendRate) * 1000; //ms
+    limiter.updateSettings({ maxConcurrent: sendAction.meta.maxSendRate, minTime: TIME_SEND }); //use Bottleneck to control the rate of emails sends
     return ({
         ...sendAction,
         meta: {

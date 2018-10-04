@@ -20,8 +20,6 @@ const Org = require('../../db/models').org;
  */
 function createSnsTopics(sns, config) {
     const SNS_ALL = 'thunder-mail-all';
-    const SNS_BOUNCE = 'thunder-mail-bounce';
-    const SNS_COMPLAINT = 'thunder-mail-complaint';
 
     const create = (name) => {
         // If this queue already exists, it just returns the ARN
@@ -29,21 +27,12 @@ function createSnsTopics(sns, config) {
         return sns.createTopic({ Name: name }).promise();
     };
 
-    return Promise
-        .all([
-            create(SNS_ALL),
-            create(SNS_BOUNCE),
-            create(SNS_COMPLAINT)
-        ])
-        .then(topics => {
-            return R.merge(config, {
-                sns: {
-                    all: { arn: topics[0].TopicArn },
-                    bounce: { arn: topics[1].TopicArn },
-                    complaint: { arn: topics[2].TopicArn }
-                }
-            });
-        });
+    return create(SNS_ALL)
+        .then(topics => R.merge(config, {
+            sns: {
+                all: { arn: topics.TopicArn }
+            }
+        }));
 }
 
 /**
@@ -129,27 +118,40 @@ function subscribeSnsToSqs(sns, config) {
 }
 
 /**
- * @notInUse
- * @description subscribe ses to sns
+ * Create configuration set to listen to event types in SES and send them to SNS
  * @param ses
- * @param config
- * @return {Promise<Object>}
+ * @param {Object} config
+ * @return {Promise<PromiseResult<SES.CreateConfigurationSetEventDestinationResponse, AWSError>>}
  */
-function subscribeSesToSns(ses, config) {
-    return Promise
-        .all([
-            ses.setIdentityNotificationTopic({
-                Identity: process.env.SES_EMAIL_ADDRESS,
-                NotificationType: "Bounce",
-                SnsTopic: config.sns.bounce.arn
-            }).promise(),
-            ses.setIdentityNotificationTopic({
-                Identity: process.env.SES_EMAIL_ADDRESS,
-                NotificationType: "Complaint",
-                SnsTopic: config.sns.complaint.arn
-            }).promise()
-        ])
-        .then(() => config);
+function createConfigurationSet(ses, config) {
+    return ses
+        .createConfigurationSet({
+            ConfigurationSet: {
+                Name: 'thunder-mail'
+            }
+        })
+        .promise()
+        .then(() => {
+            return ses.createConfigurationSetEventDestination({
+                ConfigurationSetName: 'thunder-mail',
+                EventDestination: {
+                    MatchingEventTypes: [
+                        "send", "reject", "bounce", "complaint", "delivery"
+                    ],
+                    Enabled: true,
+                    Name: 'thundermail',
+                    SNSDestination: {
+                        TopicARN: config.sns.all.arn
+                    }
+                }
+            }).promise();
+        })
+        .catch(reason => {
+            if (reason.message !== "Configuration set <thunder-mail> already exists.") {
+                throw reason;
+            }
+            console.log("Configuration set created");
+        });
 }
 
 module.exports = {
@@ -186,7 +188,7 @@ module.exports = {
         return createSnsTopics(sns, config)
             .then((config) => createSqsQueue(sqs, config))
             .then((config) => subscribeSnsToSqs(sns, config))
-            .then((config) => subscribeSesToSns(ses, config))
+            .then((config) => createConfigurationSet(ses, config))
             .catch(reason => {
                 console.error(reason);
             });
