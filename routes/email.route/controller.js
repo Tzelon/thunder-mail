@@ -9,21 +9,6 @@ const limiter = require('../../utils/queue');
 const getRecipients = ({ to, bcc = [], cc = [] }) => [...to, ...bcc, ...cc];
 
 /**
- * Validate the request body and return it or error
- *
- * @func
- * @since v0.0.0
- * @param {Schema} schema - the schema we want to validate against
- * @param {Object} reqBody The object we get from the client
- * @return {Promise<Object>} reqBody
- */
-const validateRequestBody = R.curry(function validateRequestBody(schema, reqBody) {
-    const { error, value } = schema.validate(reqBody);
-    if (error) return Promise.reject(error);
-    return Promise.resolve(value);
-});
-
-/**
  * Create email object for each recipient. by override the global fields with destination fields
  *
  * @func
@@ -265,7 +250,6 @@ const template = R.curry(function template(source, data) {
 
 
 module.exports = {
-    validateRequestBody,
     createDestinationsEmail,
     validateSESQuotes,
     validateSubscribersInDestinations,

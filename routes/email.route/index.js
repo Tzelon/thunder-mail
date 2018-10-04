@@ -2,12 +2,13 @@ const express = require('express');
 const R = require('ramda');
 const { checkAPIKey } = require('../../middleware');
 const { getSES } = require('../../config/aws');
-const sendEmailSchema = require('../schemas/sendEmail');
+const sendEmailSchema = require('./schemas');
 const { activity: Activity, subscriber: Subscriber } = require('../../db/models');
 const { insertTrackingPixel, insertUnsubscribeLink, wrapLink } = require('../../apis/analytics');
+const { validateRequestBody } = require('../shared.controller');
 const {
-    bulkCreateActivities, updateActivitiesWithMessageId, createSendFn, validateRequestBody,
-    applyAnalytics, validateSubscribersInDestinations, createDestinationsEmail, validateSESQuotes
+    bulkCreateActivities, updateActivitiesWithMessageId, createSendFn, applyAnalytics,
+    validateSubscribersInDestinations, createDestinationsEmail, validateSESQuotes
 } = require('./controller');
 
 const router = express.Router();

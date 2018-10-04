@@ -1,7 +1,9 @@
-const sendEmailSchema = require('../../../routes/schemas/sendEmail');
+const sendEmailSchema = require('../../../routes/email.route/schemas');
+const controller = require('../../../routes/email.route/controller');
+const { validateRequestBody } = require('../../../routes/shared.controller');
 
 describe('email route controller functions', function () {
-    const controller = require('../../../routes/email.route/controller');
+
     describe('template function', function () {
         it('should return template string', function () {
             const string = controller.template("<h1>{{demo}}</h1>", { demo: "hello world" });
@@ -28,7 +30,7 @@ describe('email route controller functions', function () {
                     }
                 }
             };
-            return controller.validateRequestBody(sendEmailSchema, param);
+            return validateRequestBody(sendEmailSchema, param);
         });
 
         it('should failed to validate validate', function () {
@@ -43,7 +45,7 @@ describe('email route controller functions', function () {
                 }
             };
 
-            return controller.validateRequestBody(sendEmailSchema, param)
+            return validateRequestBody(sendEmailSchema, param)
                 .catch((reason) => {
                     expect(reason.message).to.include('"destination" is require');
                 });
