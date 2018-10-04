@@ -33,8 +33,8 @@ Send highly targeted emails without worrying about dangerous deploys or bloated 
 [Read more](https://easysendy.com/blog/amazon-ses-vs-sendgrid/)
 
 ## Getting Started
+
 ### Setting up Thunder Mail (docker)
-This guide was written for linux-based machines (Ubuntu 16.04).
 
 #### Retrieving AWS credentials
 [mail-for-good](https://github.com/freeCodeCamp/mail-for-good/) did a well documented and explained guide on how to get AWS credentials [here](https://www.youtube.com/watch?v=_7U03GVD4a8)
@@ -65,26 +65,15 @@ vi .env
 
 Sample .env file
 ```
-BLUEBIRD_WARNINGS=0
-
-# API key encryption secret
+# API key encryption secret (16 chars length)
 ENCRYPTION_SECRET=
 
-# Postgres configuration
-PSQL_USERNAME=
-PSQL_PASSWORD=
-PSQL_DATABASE=
-PSQL_HOST=
-
-# Your organization domain, should be unique
-DOMAIN=test
-
-# AWS SES configuration
+# AWS SES configuration - as we extracted in the previous section.
 SES_ACCESS_KEY_ID=
 SES_SECRET_ACCESS_KEY=
 SES_REGION=
 
-#The email you will send emails from. the from address in the emails you send
+# The email address that emails will be sent from.
 SES_EMAIL_ADDRESS=
 ```
 

@@ -18,8 +18,10 @@ services:
     env_file: .env
     environment:
       PSQL_USERNAME: postgres
+      PSQL_PASSWORD: 123456
       PSQL_DATABASE: thundermail
       PSQL_HOST: postgres
+      BLUEBIRD_WARNINGS: 0
       VIRTUAL_HOST: app
       VIRTUAL_PORT: 8080
     networks:
