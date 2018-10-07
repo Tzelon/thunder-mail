@@ -34,6 +34,8 @@ Send highly targeted emails without worrying about dangerous deploys or bloated 
 
 ## Getting Started
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Circle-gg/thunder-mail/tree/heroku-stable)
+
 ### Setting up Thunder Mail (docker)
 
 #### Retrieving AWS credentials
