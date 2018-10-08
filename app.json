@@ -1,0 +1,31 @@
+{
+  "name": "Thunder-Mail",
+  "description": "An open source app for sending transactional emails using AWS SES",
+  "repository": "https://github.com/Circle-gg/thunder-mail",
+  "logo": "https://thunder-mail-website.herokuapp.com/_next/static/images/logo-8e08ce83c31a609765ebe6e9e89a386c.png",
+  "keywords": [
+    "email",
+    "SES",
+    "thundermail"
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "stack": "heroku-18",
+  "env": {
+    "ENCRYPTION_PASSWORD": {
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:hobby-dev",
+      "options": {
+        "version": "10"
+      }
+    }
+  ]
+}

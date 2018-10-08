@@ -34,6 +34,11 @@ Send highly targeted emails without worrying about dangerous deploys or bloated 
 
 ## Getting Started
 
+### Heroku 1-Click Deploy
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Circle-gg/thunder-mail/tree/heroku-stable)
+
+You will have to configure the following at [Heroku config vars](https://devcenter.heroku.com/articles/config-vars) after the deployment and restart the dynamo: SES_SECRET_ACCESS_KEY, SES_REGION, SES_EMAIL_ADDRESS, SES_ACCESS_KEY_ID, DOMAIN
+
 ### Setting up Thunder Mail (docker)
 
 #### Retrieving AWS credentials
